@@ -45,10 +45,10 @@
                 <td>{{$quotes->slug}}</td>
                 <td>{{$quotes->subject}}</td>
                 <td>  
-                  @if (is_null($quotes->images))
+                  @if (is_null($quotes->image))
                       <label> - </label>
                     @else
-                      <img class="img-rounded zoom" src="{{asset('quotes_images')}}/{{$quotes->images->name}}" width="50">
+                      <img class="img-rounded zoom" src="{{asset('quotes_images')}}/{{$quotes->image->name}}" width="50">
                     @endif
               </td>
                 <td>
