@@ -60,7 +60,6 @@ class QuotesController extends Controller
             'tittle' => 'required',
             // 'slug' => 'required',
             'subject' => 'required',
-            'views' => 'required',
         ]);
         $active = FALSE;
         if($request->has('active')){
@@ -71,7 +70,6 @@ class QuotesController extends Controller
         $saveQuotes->tittle = $request->tittle;
         $saveQuotes->slug = $slug = Str::slug($request->tittle, '-');
         $saveQuotes->subject = $request->subject;
-        $saveQuotes->views = $request->views;
         $saveQuotes->active = $active;
         $saveQuotes->save();
 
@@ -106,7 +104,7 @@ class QuotesController extends Controller
        $pagemain = array (
            'title' => 'Quotes',     
            'menu' => 'Quotes',
-           'submenu' => '',
+           'submenu' => 'quotes',
            'pagecontent' => $pagecontent,
        );
 
@@ -131,12 +129,35 @@ class QuotesController extends Controller
         $updateQuotes->tittle = $request->tittle;
         $updateQuotes->slug = $slug = Str::slug($request->tittle, '-');
         $updateQuotes->subject = $request->subject;
-        $updateQuotes->views = $request->views;
         $updateQuotes->active = $active;            
         $updateQuotes->save();
         
         $updateQuotes->tags()-sync($request->tags);
 
           return redirect('quotes')->with('status_success','Update Quote');
+    }
+
+    public function delete(Quotes $quote)
+    {
+
+        $deleteQuotes = Quotes::with(['tags'])
+                        ->where('idquotes',$quote->idquotes)
+                        ->first();
+        // return $deleteQuotes; 
+        $data_tag = [];                
+        foreach($deleteQuotes->tags as $tag){
+            $data_tag[] = $tag->idtags;
+        }
+
+        $deleteQuotes->tags()->detach($data_tag);
+        $deleteQuotes->delete();
+        return redirect('quotes')->with('status_success','Deleted Quotes');
+    }
+
+    public function show($slug)
+    {
+        // die('oke');
+        $slud = Quotes::where('tittle',$slug)->first();
+        return $slud;
     }
 }

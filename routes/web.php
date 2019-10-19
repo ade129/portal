@@ -29,7 +29,8 @@ Route::get('/quotes/create-new', 'QuotesController@create_page')->name('create_p
 Route::post('/quotes/create-new', 'QuotesController@save_page')->name('save_page');
 Route::get('/quotes/update/{quotes}', 'QuotesController@update_page')->name('edit');
 Route::post('/quotes/update/{quotes}', 'QuotesController@update_save')->name('update');
-
+Route::delete('/quotes/delete/{quote}', 'QuotesController@delete')->name('delete');
+Route::get('/quotes/show/{slug}', 'QuotesController@show')->name('create');
 
 // tags
 Route::get('tags', 'TagsController@index')->name('index');

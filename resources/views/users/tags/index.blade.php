@@ -26,6 +26,7 @@
             <th>Tag Name</th>
             <th>Slug</th>
             <th>Status</th>
+            <th></th>
             </tr>
           </thead>
           <tbody>

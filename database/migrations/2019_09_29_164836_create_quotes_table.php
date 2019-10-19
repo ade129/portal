@@ -18,7 +18,6 @@ class CreateQuotesTable extends Migration
             $table->string('tittle');
             $table->string('slug');
             $table->string('subject');
-            $table->string('views');
             $table->boolean('active');
             $table->softDeletes();
             $table->timestamps();

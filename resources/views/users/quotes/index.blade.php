@@ -24,10 +24,11 @@
           <tr>
             <th>No</th>
             <th>Tittle</th>
+            <th>Tag</th>
             <th>Slug</th>
             <th>Subject</th>
-            <th>View</th>
             <th>Status</th>
+            <th></th>
           </tr>
           </thead>
           <tbody>
@@ -35,9 +36,13 @@
                 <tr>
                 <td>{{$quotes->idquotes}}</td>
                 <td>{{$quotes->tittle}}</td>
+                <td>
+                  @foreach ($quotes->tags as $item)
+                    {{$item->tag_name}}  
+                @endforeach
+                </td>
                 <td>{{$quotes->slug}}</td>
                 <td>{{$quotes->subject}}</td>
-                <td>{{$quotes->views}}</td>
                 <td>
                   <center>
                       @if ($quotes->active)
@@ -49,6 +54,7 @@
                 </td>
                 <td>
                   <a href="{{url('/quotes/update/'.$quotes->idquotes)}}"><i class="fa fa-pencil-square-o"></i></a>
+                  <a href="{{url('/quotes/show/'.$quotes->slug)}}" ><i class="fa fa-eye"></i></a>
                 </td>
                 </tr>
             @endforeach

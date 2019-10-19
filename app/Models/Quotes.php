@@ -14,13 +14,9 @@ class Quotes extends Model
 
     protected $table = 'quotes';
     protected $primaryKey = 'idquotes';
-
-    // protected $fillable = [
-    //     'tittle',
-    //     'slug',
-    //     'subject',
-    //     'views',
-    // ];
+    protected $fillable = [
+        'tittle','slug','subject','views',
+    ];
 
     protected $casts = [
         'active' => 'boolean'

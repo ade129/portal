@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Tags</label>
                     <div class="col-sm-8">
-                      <select name="tag[]" class="form-control select2" multiple="multiple">
+                      <select name="tags[]" class="form-control select2" multiple="multiple">
                         @foreach ($tags as $tags)
                           <option value="{{$tags->idtags}}">{{$tags->tag_name}}</option>
                         @endforeach
@@ -46,13 +46,6 @@
                     <label class="col-sm-2 control-label">Subject</label>
                     <div class="col-sm-8">
                       <input type="text" class="form-control" placeholder="Subject" name="subject" required>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">View</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" placeholder="View" name="views" required>
                     </div>
                 </div>
 
