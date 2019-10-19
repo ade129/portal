@@ -39,16 +39,19 @@
                       selected
                   @endif>{{$tags->tag_name}}</option>
                 @endforeach
-                
-              </select>
+                     </select>
             </div>
           </div>
             
           <div class="form-group">
               <label class="col-sm-2 control-label">Subject</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" value="{{$quotes->subject}}" name="subject" required>
+                <textarea name="subject" rows="5" class="form-control" value="{{$quotes->subject}}"></textarea>
               </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Upload</label>
           </div>
   
           <div class="form-group">

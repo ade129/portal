@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Models\Quotes;
 use App\Models\Tags;
+use App\Models\Images;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Image;
+use File;
 
 class QuotesController extends Controller
 {
@@ -18,7 +21,7 @@ class QuotesController extends Controller
    public function index()
    {
       $contents = [
-        'quotes'  => Quotes::with(['tags'])->get(),
+        'quotes'  => Quotes::with(['tags','image'])->get(),
       ];
 
       $pagecontent = view('users.quotes.index',$contents);
@@ -72,10 +75,22 @@ class QuotesController extends Controller
         $saveQuotes->subject = $request->subject;
         $saveQuotes->active = $active;
         $saveQuotes->save();
-
+        
+        //save images
+        $save_images = new Images;
+        $save_images->idquotes = $saveQuotes->idquotes;
+        if ($request->hasFile('images')){
+            $image = $request->file('images');
+            $re_image = Str::random(20).'.'.$image->getClientOriginalExtension();
+            Image::make($image)->resize(300, 300)->save( public_path('/quotes_images/' . $re_image) );
+            $save_images->name = $re_image;
+        }
+        $save_images->save();
+      
+        //save tags
         $saveQuotes->tags()->attach($request->tags,[
-                                    'created_at' => date('Y-m-d h:i:s')
-                                    ]);
+                   'created_at' => date('Y-m-d h:i:s')
+                    ]);
 
         return redirect('quotes')->with('Status_Success','Quotes Created');
     
@@ -88,9 +103,9 @@ class QuotesController extends Controller
                 ->where('idquotes',$quotes->idquotes)
                 ->first();
 
-        $data_tags = [$quotes];
-        foreach($quotes->tags as $tags){
-            $data_tags[] = $tags->idtags;
+        $data_tags = [];
+        foreach($quotes->tags as $tag){
+            $data_tags[] = $tag->idtags;
         }
 
         $contents = [
@@ -118,7 +133,6 @@ class QuotesController extends Controller
         'tittle' => 'required',
         // 'slug' => 'required',
         'subject' => 'required',
-        'views' => 'required',
         'active' => ''
         ]);
         $active = FALSE;
@@ -132,7 +146,7 @@ class QuotesController extends Controller
         $updateQuotes->active = $active;            
         $updateQuotes->save();
         
-        $updateQuotes->tags()-sync($request->tags);
+        $updateQuotes->tags()->sync($request->tags);
 
           return redirect('quotes')->with('status_success','Update Quote');
     }

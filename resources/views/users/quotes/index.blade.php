@@ -27,6 +27,7 @@
             <th>Tag</th>
             <th>Slug</th>
             <th>Subject</th>
+            <th>Image</th>
             <th>Status</th>
             <th></th>
           </tr>
@@ -37,12 +38,19 @@
                 <td>{{$quotes->idquotes}}</td>
                 <td>{{$quotes->tittle}}</td>
                 <td>
-                  @foreach ($quotes->tags as $item)
-                    {{$item->tag_name}}  
-                @endforeach
+                     @foreach ($quotes->tags as $item)
+                     {{$item->tag_name}}  
+                     @endforeach
                 </td>
                 <td>{{$quotes->slug}}</td>
                 <td>{{$quotes->subject}}</td>
+                <td>  
+                  @if (is_null($quotes->images))
+                      <label> - </label>
+                    @else
+                      <img class="img-rounded zoom" src="{{asset('quotes_images')}}/{{$quotes->images->name}}" width="50">
+                    @endif
+              </td>
                 <td>
                   <center>
                       @if ($quotes->active)

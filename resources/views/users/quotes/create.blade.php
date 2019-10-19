@@ -23,7 +23,7 @@
                 <h3 class="box-title">Create New</h3> 
               </div>
               <div class="box-body">
-                {{ Form::open(array('url' => 'quotes/create-new', 'class' => 'form-horizontal')) }}
+                {{ Form::open(array('url' => 'quotes/create-new', 'class' => 'form-horizontal','files'=> 'true')) }}
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Tittle</label>
                   <div class="col-sm-8">
@@ -42,13 +42,20 @@
                     </div>
                   </div>
 
-                <div class="form-group">
+                  <div class="form-group">
                     <label class="col-sm-2 control-label">Subject</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" placeholder="Subject" name="subject" required>
+                      <textarea name="subject" rows="5" class="form-control"></textarea>
                     </div>
-                </div>
+                 </div>
 
+                 <div class="form-group">
+                    <label class="col-sm-2 control-label">Upload</label>
+                    <div class="col-sm-8">
+                      <input type="file" class="form-control" placeholder="Image" name="images" id="images" required>
+                    </div>
+                  </div>
+        
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Status</label>
                 <div class="col-sm-10">
