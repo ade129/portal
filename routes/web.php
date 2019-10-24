@@ -38,3 +38,6 @@ Route::get('tags/create-new', 'TagsController@create_page')->name('create_page')
 Route::post('tags/create-new', 'TagsController@save_page')->name('save_page');
 Route::get('/tags/update/{tags}', 'TagsController@update_page')->name('edit');
 Route::post('/tags/update/{tags}', 'TagsController@update_save')->name('update');
+
+// blog
+Route::get('/blog','Frontend\BlogController@index')->name('index');
